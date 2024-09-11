@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Red's Cheese Pak ◆ Designer + Front End Developer</title>
+    <title>Red ◆ Designer + Front End Developer ⬖ Cheese Pak</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css" media="all">
-    <link rel="stylesheet" type="text/css" href="style.css" media="all">
     <link rel="stylesheet" href="https://oubliettering.neocities.org/onionring/onionring.css">
+    <link rel="stylesheet" type="text/css" href="style.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/backgrounds.css" media="all">
   </head>
   <body>
@@ -86,29 +86,84 @@
             </div>
           </div>
         </section>
-        <section class="windows">
-          <article class="item">
-              <div id="content">
-                <h1><em>Hey, I'm Red</em></h1>
-                <p>a multidisciplinary designer + front end developer who loves games and interactivity.</p>
-                <p>This site is (obviously) under construction. Eventually this'll be my main hub but I keep getting pulled towards other projects.</p>
-                <p>Check out some of my current projects below and <a href="https://neocities.org/site/cheesepak" target="_blank">follow my neocities profile</a> for updates.</p>
+        <section class="window-rows">
+          <article class="windows">
+            <article id="intro" class="item">
+                  <h1><em>Hey, I'm Red</em></h1>
+                  <p>a multidisciplinary designer + front end developer who loves games and interactivity.</p>
+                  <p>I live in Portland, OR, have BA in Graphic Design with a focus on web development, and my favorite food is curry.</p>
 
-                <h2>Nightshade VSCode Theme</h2>
-                <p>Nightshade is a green-forward dark theme for VS Code.</p>
-                <p>Originally created to match my home workstation desk themed around Poison-type Pokemon, I've fleshed out Nightshade VS Code theme to support multiple languages.</p>
-                <p>Check it out on <a href="https://github.com/cheesepak" target="_blank">Github</a>.</p>
+                  <h2>Find Me Elsewhere</h2>
+                  <ul>
+                    <li><a href="https://github.com/cheesepak" target="_blank">Github</a></li>
+                    <li><a href="https://neocities.org/site/cheesepak" target="_blank">Neocities</a></li>
+                  </ul>
 
-                <h2>Yorda Zone</h2>
-                <p>Please visit <a href="https://yordazone.neocities.org/" target="_blank">my cat's neocities shrine</a> and check out her <a href="https://yordazone.neocities.org/webring.html" target="_blank">orbital zone webring</a> for pets.</p>
-              </div>
+                  <p>This site is (obviously) under construction. Eventually this'll be my main hub but I keep getting pulled towards other projects.</p>      
+                  
+                  <h2>Yorda Zone</h2>
+                  <p>Please visit <a href="https://yordazone.neocities.org/" target="_blank">my cat's neocities shrine</a> and check out her <a href="https://yordazone.neocities.org/webring.html" target="_blank">orbital zone webring</a> for pet sites.</p>
+            </article>
+
+            <article id='oubliette-ring' class="item">
+                <script type="text/javascript" src="https://oubliettering.neocities.org/onionring/onionring-variables.js"></script>
+                <script type="text/javascript" src="https://oubliettering.neocities.org/onionring/onionring-widget.js"></script>
+            </article>
           </article>
-          <article class="item">
-            <div id='oubliette-ring'>
-              <script type="text/javascript" src="https://oubliettering.neocities.org/onionring/onionring-variables.js"></script>
-              <script type="text/javascript" src="https://oubliettering.neocities.org/onionring/onionring-widget.js"></script>
+
+          <article id="projects">
+            <input type="radio" name="project" id="p-1">
+            <input type="radio" name="project" id="p-2">
+            <input type="radio" name="project" id="p-3" checked>
+            <input type="radio" name="project" id="p-4">
+            <input type="radio" name="project" id="p-5">	
+            
+            <div class="dots windows">
+              <label for="p-1"></label>
+              <label for="p-2"></label>
+              <label for="p-3"></label>
+              <label for="p-4"></label>
+              <label for="p-5"></label>
             </div>
+
+            <!-- Project Slides -->
+            <label class="project" for="p-1">
+              <div class="description">
+                <h2>Project coming soon</h2>
+              </div>
+              <div class="tag">Project Coming Soon</div>
+            </label>
+            <label class="project" for="p-2">
+              <div class="description">
+                <h2>Project coming soon</h2>
+              </div>
+              <div class="tag">Project Coming Soon</div>
+            </label>
+            <label class="project" for="p-3">
+              <div class="description">
+                <h2>Game Jams</h2>
+                <p>I've participated in multiple game jams. </p>
+                <p>More info coming soon.</p>
+              </div>
+              <div class="tag">Game Jams</div>
+            </label>
+            <label class="project" for="p-4">
+              <div class="description">
+                <h2>Nightshade VS Code Theme</h2>
+                <p>Nightshade is a green-forward dark theme for VS Code.</p>
+                <p>Generic support for all languages as well as custom support for HTML, CSS/SCSS, Python, C, C++, Markdown, and more.</p>
+                <p>Check it out on <a href="https://github.com/cheesepak/nightshade-theme-vscode" target="_blank">Github</a>.</p>
+              </div>
+              <div class="tag">Nightshade VS Code Theme</div>
+            </label>
+            <label class="project" for="p-5">
+              <div class="description">
+                <h2>Project coming soon</h2>
+              </div>
+              <div class="tag">Project Coming Soon</div>
+            </label>
           </article>
+
         </section>
       </div>
     </main>

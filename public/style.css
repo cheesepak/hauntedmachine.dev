@@ -1,13 +1,19 @@
 /* ===================================================================================  /
 /  --- style.css ---------------------------------------------------------------------  /
 /  =================================================================================== */
-       
+
+/*  https://codepen.io/medrupaloscil/pen/OJNrLLX 
+    https://codepen.io/dp_lewis/pen/WNZQzN
+    use as reference for projects section */
+
 :root {
     --purple: #54258a;
     --porple: #5a0085;
     --red-purple: #692286;
     --grey-purple: #4d3f63;
+    --light-red: #f96b59;
     --red-orange: #de3d11;
+    --red-orange-transparent: #de3e112c;
     --orange: #de6d11;
     --yellow: #e3ac26;
     --light-yellow: #fbf16a;
@@ -18,10 +24,12 @@
     --lime: #c2d800;
     --tan: #e2dac8;
     --white: #eee6db;
-    --white-transparent: #eee6dbce;
+    --white-transparent: #eee6dbaf;
+    --white-transparent-overlay: #eee6dbee;
     --white-purple: #decccc;
     --black: #161100;
     --black-transparent: #16110070;
+    --black-transparent-overlay: #161100bb;
     --bright-green: #00d878;
     --red: #FF002F;
   
@@ -33,6 +41,8 @@
     --link-hover: var(--yellow);
     --heading: var(--purple);
     --window-bg: var(--black-transparent);
+    --window-bg-overlay: var(--black-transparent-overlay);
+    --project-blend-mode: overlay;
 }
 
 @font-face {
@@ -61,7 +71,7 @@
     src: url('fonts/IBM_Plex_Sans/IBMPlexSans-BoldItalic.ttf') format('truetype');
     font-weight: bold;
     font-style: italic;
-}/**/
+}
 
 html {
     font-size: 62.5%;
@@ -79,10 +89,14 @@ body:has(#darkmode .checkbox:checked) {
     --background: var(--white);
     --font-color: var(--black);
     --window-bg: var(--white-transparent);
+    --project-blend-mode: lighten;
+    --window-bg-overlay: var(--white-transparent-overlay);
 }
+
 p {
     font-style: normal;
 }
+
 a, a:visited { 
     color: var(--link-color); 
     text-decoration: none;
@@ -106,7 +120,8 @@ h3,
 h4, 
 h5, 
 h6 {
-    color: var(--heading); 
+    color: var(--heading);
+    font-style: italic; 
     margin: 35px 0 15px 0;
 }
 
@@ -117,6 +132,11 @@ h1 {
 h2 {
     font-size: 3rem;
     font-weight: 700;
+}
+
+li::marker {
+    content: "◆   ";
+    color: var(--yellow)
 }
 
 em {
@@ -135,13 +155,22 @@ main.flex {
     padding: 20px 40px; 
 }
 
-#content {
+#intro, #oubliette-ring, #social-media {
     padding: 15px 40px 30px 40px;
+}
+
+#oubliette-ring {
+    margin: 0 40px 40px 40px;
 }
 
 .flex-container {
     position: absolute;
     top: 10px;
+}
+
+.window-rows {
+    display: flex;
+    flex-direction: row;
 }
 
 .windows {
@@ -157,19 +186,254 @@ main.flex {
     box-shadow: 6px 6px var(--primary2);
     background-color: var(--window-bg);
     backdrop-filter: blur(3px);
+    box-sizing: border-box; 
 }
-
-
 
 .emoji {
     color: transparent;  
     text-shadow: 0 0 0 #00d878;
 }
 
+.logo {
+    height:64px;
+    width:64px;
+    border-radius: 50%;
+    background:#00d878;
+    mix-blend-mode: lighten;
+}
+
+#projects {
+	display: flex;
+	perspective: 1000px;
+    height: 90vh; 
+    position: relative;
+}
+
+#projects .project {
+	width: 450px;
+    height: 450px;
+    position: absolute;
+	top: 0;
+    border: solid 2px var(--primary);
+    box-shadow: 6px 6px var(--primary2);
+    background-color: var(--window-bg);
+    backdrop-filter: blur(3px);
+	box-sizing: border-box;
+	transition: transform 0.5s;
+    transform-origin: center;
+	user-select: none;
+	cursor: pointer;
+}
+
+#projects .project .tag {
+    background: var(--red-orange);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #d7e3e3;
+    font-style: italic;
+    line-height: 1;
+    padding: 5px;
+    transition: opacity 0.3s;
+  }
+
+
+/*
+#projects .project:after {
+    background: var(--red-orange-transparent);
+    backdrop-filter: blur(3px);
+    width: 450px;
+    height: 50px;
+}*/
+
+.spacer {
+    display: block;
+    margin-bottom: 40px;
+}
+
+#projects .project .description{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: var(--window-bg-overlay);
+    padding: 40px 15px 30px 15px;
+}
+
+#projects .project .description p {
+    margin-bottom:2px;
+}
+
+#projects .project .description:hover{
+    opacity: 1;
+}
+
+#projects .project .description:hover + .tag{
+    opacity: 0;
+}
+
+#projects input {
+	position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#projects label {
+    transition: transform 1s;
+}
+
+#projects > label[for="p-1"],
+#projects > label[for="p-2"],
+#projects > label[for="p-3"],
+#projects > label[for="p-4"],
+#projects > label[for="p-5"] {
+    background-blend-mode: var(--project-blend-mode);
+}
+
+#projects > label[for="p-3"] {
+    background: url(img/gamedev-900.jpg), var(--primary);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+#projects > label[for="p-4"] {
+    background: url(img/vscode-900.jpg), var(--primary);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#projects > label h2 {
+    color: var(--red-orange);
+    margin-top: 0;
+}
+
+.dots {
+	display: flex;
+    flex-direction:row;
+	justify-content: center;
+	align-items: center;
+    position: absolute;
+    left: 470px;
+    z-index: 10;
+
+}
+
+.dots label {
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+    clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+	cursor: pointer;
+	background-color: var(--primary);
+	margin: 7px;
+	transition-duration: 0.2s;
+}
+
+#p-1:checked ~ .dots label[for="p-1"],
+#p-2:checked ~ .dots label[for="p-2"],
+#p-3:checked ~ .dots label[for="p-3"],
+#p-4:checked ~ .dots label[for="p-4"],
+#p-5:checked ~ .dots label[for="p-5"] {
+	transform: scale(2);
+	background-color: var(--yellow);
+}
+#p-1:checked ~ .dots label[for="p-2"],
+#p-2:checked ~ .dots label[for="p-1"],
+#p-2:checked ~ .dots label[for="p-3"],
+#p-3:checked ~ .dots label[for="p-2"],
+#p-3:checked ~ .dots label[for="p-4"],
+#p-4:checked ~ .dots label[for="p-3"],
+#p-4:checked ~ .dots label[for="p-5"],
+#p-5:checked ~ .dots label[for="p-4"] {
+	transform: scale(1.5);
+    background-color: var(--red-orange);
+}
+
+
+#p-1:checked ~ label[for="p-5"] {
+	transform: translate3D(0, 2000px, 0);
+}
+#p-1:checked ~ label[for="p-4"],
+#p-2:checked ~ label[for="p-5"] {
+	transform: translate3d(0, 1500px, 0);
+	z-index: 1;
+}
+#p-1:checked ~ label[for="p-3"],
+#p-2:checked ~ label[for="p-4"],
+#p-3:checked ~ label[for="p-5"] {
+	transform: translate3d(0, 1000px, 0);
+	z-index: 2;
+}
+
+#p-1:checked ~ label[for="p-2"],
+#p-2:checked ~ label[for="p-3"],
+#p-3:checked ~ label[for="p-4"],
+#p-4:checked ~ label[for="p-5"] {
+	transform: translate3d(0, 500px, 0); 
+	z-index: 3;
+}
+
+
+#p-2:checked ~ label[for="p-1"],
+#p-3:checked ~ label[for="p-2"],
+#p-4:checked ~ label[for="p-3"],
+#p-5:checked ~ label[for="p-4"] {
+	transform: translate3d(0, -500px, 0);
+	z-index: 3;
+}
+#p-3:checked ~ label[for="p-1"],
+#p-4:checked ~ label[for="p-2"],
+#p-5:checked ~ label[for="p-3"] {
+	transform: translate3d(0, -1000px, 0);
+}
+#p-5:checked ~ label[for="p-2"],
+#p-4:checked ~ label[for="p-1"] {
+	transform: translate3d(0, -1500px, 0);
+}
+#p-5:checked ~ label[for="p-1"] {
+	transform: translate3d(0, -2000px, 0);
+}
+
+#p-1:checked ~ label[for="p-1"],
+#p-2:checked ~ label[for="p-2"],
+#p-3:checked ~ label[for="p-3"],
+#p-4:checked ~ label[for="p-4"],
+#p-5:checked ~ label[for="p-4"],
+#p-5:checked ~ label[for="p-5"] {
+	z-index: 4;
+}
+
+/*
+#p-1:checked ~ label:not([for="p-1"]),
+#p-2:checked ~ label:not([for="p-2"]),
+#p-3:checked ~ label:not([for="p-3"]),
+#p-4:checked ~ label:not([for="p-4"]),
+#p-5:checked ~ label:not([for="p-5"]) {
+	opacity: .5;
+}*/
+
+
+.testing {
+        width: 100px;
+        height: 100px;
+        transform-style: preserve-3d; /* Ensure 3D space is preserved */
+        transition: transform 1s;
+}
+
+.testing:hover {
+    transform: rotate3d(1, 0, 0, 90deg); /* Rotate around x-axis */
+}
 
 /* --- Dark Mode Toggle --------------------------------------------------------------  
    --- Modified from https://codepen.io/alvarotrigo/pen/oNoJePo ---------------------- */
-.button-cover {
+   .button-cover {
     margin: 20px 40px;
     background-color: transparent;
     /*box-shadow: 0 10px 20px -8px #c5d6d6;*/
@@ -268,4 +532,83 @@ main.flex {
 
 #darkmode .checkbox:checked ~ .layer {
     background-color: var(--window-bg);
+}
+
+/**/
+
+
+
+
+/* ==========================================  /
+/  --- @media -------------------------------  /
+/  ========================================== */
+@media screen and (max-width: 1100px) {
+    .window-rows {
+        flex-direction: column;
+    }
+
+    .dots {
+        position: static;
+    }
+
+    #projects .project {
+        top: 40px;
+        left: 40px;
+        width: 350px;
+        height: 350px;
+
+    }
+
+    #p-1:checked ~ label[for="p-5"] {
+        transform: translate3D(800px, 0, 0);
+    }
+    #p-1:checked ~ label[for="p-4"],
+    #p-2:checked ~ label[for="p-5"] {
+        transform: translate3d(800px, 0, 0);
+        z-index: 1;
+    }
+    #p-1:checked ~ label[for="p-3"],
+    #p-2:checked ~ label[for="p-4"],
+    #p-3:checked ~ label[for="p-5"] {
+        transform: translate3d(800px, 0, 0);
+        z-index: 2;
+    }
+    
+    #p-1:checked ~ label[for="p-2"],
+    #p-2:checked ~ label[for="p-3"],
+    #p-3:checked ~ label[for="p-4"],
+    #p-4:checked ~ label[for="p-5"] {
+        transform: translate3d(400px, 0, 0); 
+        z-index: 3;
+    }
+    
+    
+    #p-2:checked ~ label[for="p-1"],
+    #p-3:checked ~ label[for="p-2"],
+    #p-4:checked ~ label[for="p-3"],
+    #p-5:checked ~ label[for="p-4"] {
+        transform: translate3d(-400px, 0, 0);
+        z-index: 3;
+    }
+    #p-3:checked ~ label[for="p-1"],
+    #p-4:checked ~ label[for="p-2"],
+    #p-5:checked ~ label[for="p-3"] {
+        transform: translate3d(-800px, 0, 0);
+    }
+    #p-5:checked ~ label[for="p-2"],
+    #p-4:checked ~ label[for="p-1"] {
+        transform: translate3d(-800px, 0 , 0);
+    }
+    #p-5:checked ~ label[for="p-1"] {
+        transform: translate3d(-800px, 0, 0);
+    }
+    
+    #p-1:checked ~ label[for="p-1"],
+    #p-2:checked ~ label[for="p-2"],
+    #p-3:checked ~ label[for="p-3"],
+    #p-4:checked ~ label[for="p-4"],
+    #p-5:checked ~ label[for="p-4"],
+    #p-5:checked ~ label[for="p-5"] {
+        z-index: 4;
+    }
 }
