@@ -535,9 +535,15 @@ main.flex {
 }
 
 /* --- Oubliette Widget Fancy --- */
+#oubliette-ring #circle-container > span {
+    color: 	var(--font-color);
+}
+
 #oubliette-ring button {
     color: 	var(--primary);
     background: var(--window-bg-overlay);
+    border: 2px solid var(--primary);
+    box-shadow: 0 10px 0 var(--primary);
 }
 
 #oubliette-ring button:hover {
