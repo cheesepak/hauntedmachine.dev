@@ -534,10 +534,22 @@ main.flex {
     background-color: var(--window-bg);
 }
 
-/**/
+/* --- Oubliette Widget Fancy --- */
+#oubliette-ring button {
+    color: 	var(--primary);
+    background: var(--window-bg-overlay);
+}
 
+#oubliette-ring button:hover {
+   border: 2px solid var(--primary);
+   border-radius: 16px;
+   transform: translateY(-5px);
+}
 
-
+#oubliette-ring button:active {
+   transform: translateY(0);
+   box-shadow: 0 3px 0 var(--primary);
+}
 
 /* ==========================================  /
 /  --- @media -------------------------------  /
