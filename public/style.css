@@ -139,6 +139,11 @@ li::marker {
     color: var(--yellow)
 }
 
+::selection {
+    color: var(--white);
+    background: var(--red-orange);
+  }
+
 em {
     color: var(--red-orange);
 }
@@ -146,42 +151,48 @@ em {
 main.flex {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
-#topbar {
-    background: var(--primary);
-    max-width: 100%;  
-    max-height: 60px; 
-    padding: 20px 40px; 
-}
-
-#intro, #oubliette-ring, #social-media {
-    padding: 15px 40px 30px 40px;
-}
-
-#oubliette-ring {
-    margin: 0 40px 40px 40px;
+footer {
+    margin: 20px;
 }
 
 .flex-container {
-    position: absolute;
-    top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1700px;
+    margin: 0 auto;
 }
 
 .window-rows {
     display: flex;
     flex-direction: row;
+    margin: 0 40px;
+    gap: 20px;
 }
 
 .windows {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
 .item {
+    width: 500px;
     max-width: 500px;
-    margin: 0 40px 40px 40px;
+    border: solid 2px var(--primary);
+    box-shadow: 6px 6px var(--primary2);
+    background-color: var(--window-bg);
+    backdrop-filter: blur(3px);
+    box-sizing: border-box; 
+}
+
+.project-item {
+    width: 500px;
+    max-width: 500px;
     border: solid 2px var(--primary);
     box-shadow: 6px 6px var(--primary2);
     background-color: var(--window-bg);
@@ -202,18 +213,22 @@ main.flex {
     mix-blend-mode: lighten;
 }
 
-#projects {
-	display: flex;
-	perspective: 1000px;
-    height: 90vh; 
-    position: relative;
+#intro {
+    padding: 15px 40px 30px 40px; 
+
 }
 
-#projects .project {
-	width: 450px;
+#project-rows {
+    flex-direction: row;
+}
+#project-rows h2 {
+    color: var(--red-orange);
+    margin-top: 0;
+}
+
+#project-rows .project {
+	max-width: 500px;
     height: 450px;
-    position: absolute;
-	top: 0;
     border: solid 2px var(--primary);
     box-shadow: 6px 6px var(--primary2);
     background-color: var(--window-bg);
@@ -223,9 +238,27 @@ main.flex {
     transform-origin: center;
 	user-select: none;
 	cursor: pointer;
+    transition: transform 1s;
+    background-blend-mode: var(--project-blend-mode);
 }
 
-#projects .project .tag {
+
+#project-rows > .project:nth-child(1) {
+    background: url(img/gamedev-900.jpg), var(--primary);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#project-rows > .project:nth-child(2) {
+    background: url(img/vscode-900.jpg), var(--primary);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+#project-rows .project .tag {
     background: var(--red-orange);
     position: absolute;
     right: 0;
@@ -237,20 +270,177 @@ main.flex {
     transition: opacity 0.3s;
   }
 
-
-/*
-#projects .project:after {
-    background: var(--red-orange-transparent);
-    backdrop-filter: blur(3px);
-    width: 450px;
-    height: 50px;
-}*/
-
-.spacer {
-    display: block;
-    margin-bottom: 40px;
+#project-rows .project .description{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: var(--window-bg-overlay);
+    padding: 40px 15px 30px 15px;
 }
 
+#project-rows .project .description p {
+    margin-bottom:2px;
+}
+
+#project-rows .project .description:hover{
+    opacity: 1;
+}
+
+#project-rows .project .description:hover + .tag{
+    opacity: 0;
+}
+
+
+.testing {
+        width: 100px;
+        height: 100px;
+        transform-style: preserve-3d; /* Ensure 3D space is preserved */
+        transition: transform 1s;
+}
+
+.testing:hover {
+    transform: rotate3d(1, 0, 0, 90deg); /* Rotate around x-axis */
+}
+
+/* --- Dark Mode Toggle --------------------------------------------------------------  
+   --- Modified from https://codepen.io/alvarotrigo/pen/oNoJePo ---------------------- */
+   .button-cover {
+    margin: 20px 40px;
+    background-color: transparent;
+    /*box-shadow: 0 10px 20px -8px #c5d6d6;*/
+    border-radius: 4px;
+}
+
+.knobs,
+.layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+
+.button {
+    position: relative;
+    width: 74px;
+    height: 36px;
+    border: solid 2px var(--primary);
+    box-shadow: 6px 6px var(--primary2);
+    overflow: hidden;
+    border-radius: 0px;
+}
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs {
+    z-index: 2;
+}
+
+.layer {
+    width: 100%;
+    background-color: var(--window-bg);
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+#darkmode .knobs:before,
+#darkmode .knobs:after,
+#darkmode .knobs span {
+    position: absolute;
+    top: 4px;
+    width: 20px;
+    height: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    border-radius: 2px;
+    transition: 0.3s ease all;
+}
+
+#darkmode .knobs:before {
+    font-size: 1.6rem;
+    content: "☀️";
+    top: 1px;
+    left: 3px;
+    color: transparent;  
+    text-shadow: 0 0 0 var(--yellow); 
+}
+
+#darkmode .knobs:after {
+    font-size: 1.6rem;
+    content: "🌙";
+    top: 1px;
+    right: 6px;
+    color: transparent;  
+    text-shadow: 0 0 0 var(--primary);
+}
+
+#darkmode .knobs span {
+    width: 25px;
+    left: 37px;
+    background-color: var(--yellow); /* covers moon */
+    color: transparent;  
+    text-shadow: 0 0 0 var(--primary); 
+    z-index: 2;
+}
+
+#darkmode .checkbox:checked + .knobs span {
+    left: 4px;
+    background-color: var(--primary); /* covers sun */
+}
+
+#darkmode .checkbox:checked ~ .layer {
+    background-color: var(--window-bg);
+}
+
+/* ==========================================  /
+/* --- Oubliette Widget Fancy ---------------  /
+/  ========================================== */
+#oubliette-ring #circle-container > span {
+    color: var(--font-color);
+}
+
+#oubliette-ring button {
+    color: var(--font-color);
+    background: var(--window-bg-overlay);
+    border: 2px solid var(--font-color);
+    box-shadow: 0 10px 0 var(--font-color);
+}
+
+#oubliette-ring button:hover {
+   border: 2px solid var(--font-color);
+   border-radius: 16px;
+   transform: translateY(-5px);
+}
+
+#oubliette-ring button:active {
+   transform: translateY(0);
+   box-shadow: 0 3px 0 var(--font-color);
+}
+
+
+/* ==========================================  /
+/* --- Slider (Not Used) --------------------  /
+/  ========================================== */
 #projects .project .description{
     width: 100%;
     height: 100%;
@@ -420,147 +610,17 @@ main.flex {
 }*/
 
 
-.testing {
-        width: 100px;
-        height: 100px;
-        transform-style: preserve-3d; /* Ensure 3D space is preserved */
-        transition: transform 1s;
-}
-
-.testing:hover {
-    transform: rotate3d(1, 0, 0, 90deg); /* Rotate around x-axis */
-}
-
-/* --- Dark Mode Toggle --------------------------------------------------------------  
-   --- Modified from https://codepen.io/alvarotrigo/pen/oNoJePo ---------------------- */
-   .button-cover {
-    margin: 20px 40px;
-    background-color: transparent;
-    /*box-shadow: 0 10px 20px -8px #c5d6d6;*/
-    border-radius: 4px;
-}
-
-.knobs,
-.layer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-
-.button {
-    position: relative;
-    width: 74px;
-    height: 36px;
-    border: solid 2px var(--primary);
-    box-shadow: 6px 6px var(--primary2);
-    overflow: hidden;
-    border-radius: 0px;
-}
-
-.checkbox {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 3;
-}
-
-.knobs {
-    z-index: 2;
-}
-
-.layer {
-    width: 100%;
-    background-color: var(--window-bg);
-    transition: 0.3s ease all;
-    z-index: 1;
-}
-
-#darkmode .knobs:before,
-#darkmode .knobs:after,
-#darkmode .knobs span {
-    position: absolute;
-    top: 4px;
-    width: 20px;
-    height: 10px;
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1;
-    padding: 9px 4px;
-    border-radius: 2px;
-    transition: 0.3s ease all;
-}
-
-#darkmode .knobs:before {
-    font-size: 1.6rem;
-    content: "☀️";
-    top: 1px;
-    left: 3px;
-    color: transparent;  
-    text-shadow: 0 0 0 var(--yellow); 
-}
-
-#darkmode .knobs:after {
-    font-size: 1.6rem;
-    content: "🌙";
-    top: 1px;
-    right: 6px;
-    color: transparent;  
-    text-shadow: 0 0 0 var(--primary);
-}
-
-#darkmode .knobs span {
-    width: 25px;
-    left: 37px;
-    background-color: var(--yellow); /* covers moon */
-    color: transparent;  
-    text-shadow: 0 0 0 var(--primary); 
-    z-index: 2;
-}
-
-#darkmode .checkbox:checked + .knobs span {
-    left: 4px;
-    background-color: var(--primary); /* covers sun */
-}
-
-#darkmode .checkbox:checked ~ .layer {
-    background-color: var(--window-bg);
-}
-
-/* --- Oubliette Widget Fancy --- */
-#oubliette-ring #circle-container > span {
-    color: 	var(--font-color);
-}
-
-#oubliette-ring button {
-    color: 	var(--primary);
-    background: var(--window-bg-overlay);
-    border: 2px solid var(--primary);
-    box-shadow: 0 10px 0 var(--primary);
-}
-
-#oubliette-ring button:hover {
-   border: 2px solid var(--primary);
-   border-radius: 16px;
-   transform: translateY(-5px);
-}
-
-#oubliette-ring button:active {
-   transform: translateY(0);
-   box-shadow: 0 3px 0 var(--primary);
-}
-
 /* ==========================================  /
 /  --- @media -------------------------------  /
 /  ========================================== */
+@media screen and (max-width: 1620px) {
+    .flex-container {
+        max-width: 1100px;
+    }
+}
+
 @media screen and (max-width: 1100px) {
+
     .window-rows {
         flex-direction: column;
     }
@@ -628,5 +688,15 @@ main.flex {
     #p-5:checked ~ label[for="p-4"],
     #p-5:checked ~ label[for="p-5"] {
         z-index: 4;
+    }
+}
+@media screen and (max-width: 1080px) {
+
+}
+
+@media screen and (max-width: 768px) {
+    .item {
+        max-width: 500px;
+        width: unset;
     }
 }
