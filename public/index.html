@@ -75,7 +75,7 @@
       </div>
       <div class="flex-container">
         <!-- Dark Mode-->
-        <section class="darkmode-toggle">
+        <header class="header">
           <div class="button-cover">
             <div class="button" id="darkmode">
               <input type="checkbox" class="checkbox" />
@@ -85,26 +85,43 @@
               <div class="layer"></div>
             </div>
           </div>
-        </section>
+
+          <nav role="navigation">
+            <div id="menu-toggle">
+                <!-- HAMBURGER MENU 🍔 -->
+                <input id="menu" type="checkbox" />
+                <label for="menu" tabindex="0">   
+                    <span></span>
+                    <span></span>
+                    <span></span>         
+                </label>
+                <!-- END HAMBURGER MENU 🍔 -->
+                <ul>
+                  <li><a href="#" data-text="CV">CV</a></li>
+                  <!-- <li><a href="#" data-text="About">About</a></li> -->
+                </ul>
+            </div>
+          </nav>
+        </header>
 
         <section id="info" class="window-rows">
             <!-- Info Boxes-->
             <article class="windows">
               <article id="intro" class="item">
-                    <h1><em>Hey, I'm Red</em></h1>
-                    <p>a multidisciplinary designer + front end developer who loves games and interactivity.</p>
-                    <p>I live in Portland, OR, have a BA in Graphic Design with a focus in web development, and my favorite food is curry.</p>
+                <h1><em>Hey, I'm Red</em></h1>
+                <p>a multidisciplinary designer + front end developer who loves games and interactivity.</p>
+                <p>I live in Portland, OR, have a BA in Graphic Design with a focus in web development, and my favorite food is curry.</p>
 
-                    <h2>Find Me Elsewhere</h2>
-                    <ul>
-                      <li><a href="https://github.com/cheesepak" target="_blank">Github</a></li>
-                      <li><a href="https://codepen.io/cheesepak" target="_blank">Codepen</a></li>
-                      <li><a href="https://neocities.org/site/cheesepak" target="_blank">Neocities</a></li>
-                    </ul>
+                <h2>Find Me Elsewhere</h2>
+                <ul>
+                  <li><a href="https://github.com/cheesepak" target="_blank">Github</a></li>
+                  <li><a href="https://codepen.io/cheesepak" target="_blank">Codepen</a></li>
+                  <li><a href="https://neocities.org/site/cheesepak" target="_blank">Neocities</a></li>
+                </ul>
 
-                    <p>This site is (obviously) under construction. I'm pulled towards multiple projects but more is on the way.</p>      
-                    
-                    <p>Please visit <a href="https://yordazone.neocities.org/" target="_blank">my cat's neocities shrine</a> and check out the <a href="https://yordazone.neocities.org/webring.html" target="_blank">orbital zone webring</a>.</p>
+                <p>This site is (obviously) under construction. I'm pulled towards multiple projects but more is on the way.</p>      
+                <p>Also, please visit <a href="https://yordazone.neocities.org/" target="_blank">my cat's shrine</a> and check out the <a href="https://yordazone.neocities.org/webring.html" target="_blank">orbital zone webring</a>.</p>
+                <p>Stay tuned!</p>
               </article>
           </article>
             <!-- Project Boxes -->
@@ -171,7 +188,13 @@
           </div>
         </footer>
       </div>
-
+      <div id="bottom-bar">
+        <ul>
+          <li><a href="https://github.com/cheesepak" target="_blank">Github</a></li>
+          <li><a href="https://codepen.io/cheesepak" target="_blank">Codepen</a></li>
+          <li><a href="https://neocities.org/site/cheesepak" target="_blank">Neocities</a></li>
+        </ul>
+      </div>
     </main>
     <script src="js/index.js"></script>
   </body>
