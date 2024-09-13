@@ -42,7 +42,8 @@
     --heading: var(--purple);
     --window-bg: var(--black-transparent);
     --window-bg-overlay: var(--black-transparent-overlay);
-    --project-blend-mode: overlay;
+    --project-blend-mode: hard-light;
+    --invert: invert(0);
 }
 
 @font-face {
@@ -90,6 +91,7 @@ body:has(#darkmode .checkbox:checked) {
     --font-color: var(--black);
     --window-bg: var(--white-transparent);
     --project-blend-mode: lighten;
+    --invert: invert(1);
     --window-bg-overlay: var(--white-transparent-overlay);
 }
 
@@ -131,6 +133,10 @@ h1 {
 }
 h2 {
     font-size: 3rem;
+    font-weight: 700;
+}
+h3 {
+    font-size: 2.6rem;
     font-weight: 700;
 }
 
@@ -231,27 +237,27 @@ footer {
     height: 450px;
     border: solid 2px var(--primary);
     box-shadow: 6px 6px var(--primary2);
-    background-color: var(--window-bg);
     backdrop-filter: blur(3px);
 	box-sizing: border-box;
 	transition: transform 0.5s;
     transform-origin: center;
 	user-select: none;
-	cursor: pointer;
+	/*cursor: pointer;*/
     transition: transform 1s;
     background-blend-mode: var(--project-blend-mode);
 }
 
 
-#project-rows > .project:nth-child(1) {
-    background: url(img/gamedev-900.jpg), var(--primary);
+#project-rows #vscode {
+    background: url(img/vscode-900.jpg), linear-gradient(135deg, rgba(90,0,133,.5) 0%, rgba(90,0,133,.5) 100%);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-#project-rows > .project:nth-child(2) {
-    background: url(img/vscode-900.jpg), var(--primary);
+#project-rows #game-jams {
+    background: url(img/gamedev-900.jpg), linear-gradient(135deg, rgba(90,0,133,.7) 0%, rgba(90,0,133,.7) 100%);
+
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -437,6 +443,9 @@ footer {
    box-shadow: 0 3px 0 var(--font-color);
 }
 
+#oubliette-ring img {
+    filter: var(--invert);
+}
 
 /* ==========================================  /
 /* --- Slider (Not Used) --------------------  /
@@ -477,14 +486,15 @@ footer {
 #projects label {
     transition: transform 1s;
 }
-
+/*
 #projects > label[for="p-1"],
 #projects > label[for="p-2"],
 #projects > label[for="p-3"],
 #projects > label[for="p-4"],
 #projects > label[for="p-5"] {
+
     background-blend-mode: var(--project-blend-mode);
-}
+}*/
 
 #projects > label[for="p-3"] {
     background: url(img/gamedev-900.jpg), var(--primary);
