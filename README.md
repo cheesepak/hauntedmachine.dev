@@ -1,2 +1,2 @@
 # cheesepak neocities
- Personal neocities hub site
+Static personal site hosted on Neocities + Deploy to Neocities
