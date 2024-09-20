@@ -8,6 +8,9 @@
 
 :root {
     --purple: #54258a;
+    --purple-transparent: #54258a70;
+    --purple-border-dark: #3a1c51;
+    --purple-border-light: #9273aa;
     --porple: #5a0085;
     --red-purple: #692286;
     --grey-purple: #4d3f63;
@@ -25,9 +28,10 @@
     --tan: #e2dac8;
     --white: #eee6db;
     --white-transparent: #eee6dbaf;
-    --white-transparent-overlay: #eee6dbee;
+    --white-transparent-overlay: #eee6dbe8;
     --white-purple: #decccc;
     --black: #161100;
+    --off-black: #241c00;
     --black-transparent: #16110070;
     --black-transparent-overlay: #161100bb;
     --bright-green: #00d878;
@@ -35,6 +39,7 @@
   
     --primary: var(--purple);
     --primary2: var(--grey-purple);
+    --primary-transparent: var(--purple-transparent);
     --background: var(--black);
     --font-color: var(--white);
     --link-color: var(--red-orange);
@@ -44,6 +49,8 @@
     --window-bg-overlay: var(--black-transparent-overlay);
     --project-blend-mode: hard-light;
     --invert: invert(0);
+    --border: solid 3px var(--purple-border-dark);
+    --box-shadow: 0px 30px 55px -49px var(--primary);
 }
 
 @font-face {
@@ -94,6 +101,7 @@ body:has(#darkmode .checkbox:checked) {
     --project-blend-mode: lighten;
     --invert: invert(1);
     --window-bg-overlay: var(--white-transparent-overlay);
+    --border: solid 3px var(--purple-border-light);
 }
 
 p {
@@ -169,7 +177,7 @@ header {
 /* ========== NAVIGATION ========== */
 
 nav {
-    margin: 23px 0 0 -20px;
+    margin: 19px 0 0 -20px;
     z-index: 100;
 }
 
@@ -199,7 +207,7 @@ nav ul li {
 nav ul li::marker {
     list-style: none;
     content: "";
-    z-index:-5;
+    /*z-index:-5;*/
 }
 
 nav ul li a {
@@ -323,21 +331,18 @@ footer {
 .item {
     width: 500px;
     max-width: 500px;
-    border: solid 2px var(--primary);
-    box-shadow: 6px 6px var(--primary2);
+    /* border: var(--border); */
+    border-radius: 20px;
+    /* box-shadow: 6px 6px var(--primary2); */
+    box-shadow: var(--box-shadow); 
     background-color: var(--window-bg);
     backdrop-filter: blur(3px);
     box-sizing: border-box; 
 }
 
-.project-item {
-    width: 500px;
-    max-width: 500px;
-    border: solid 2px var(--primary);
-    box-shadow: 6px 6px var(--primary2);
-    background-color: var(--window-bg);
-    backdrop-filter: blur(3px);
-    box-sizing: border-box; 
+.item:hover {
+    /* border: solid 3px var(--primary); */
+    transition: border-color 0.5s;    
 }
 
 .emoji {
@@ -355,7 +360,6 @@ footer {
 
 #intro {
     padding: 15px 40px 30px 40px; 
-
 }
 
 #project-rows {
@@ -366,22 +370,6 @@ footer {
     margin-top: 0;
 }
 
-#project-rows .project {
-	max-width: 500px;
-    height: 450px;
-    border: solid 2px var(--primary);
-    box-shadow: 6px 6px var(--primary2);
-    backdrop-filter: blur(3px);
-	box-sizing: border-box;
-	transition: transform 0.5s;
-    transform-origin: center;
-	user-select: none;
-	cursor: pointer;
-    transition: transform 1s;
-    background-blend-mode: var(--project-blend-mode);
-}
-
-
 #project-rows #vscode {
     background: url(img/vscode-900.jpg), linear-gradient(135deg, rgba(90,0,133,.5) 0%, rgba(90,0,133,.5) 100%);
     background-repeat: no-repeat;
@@ -391,25 +379,31 @@ footer {
 
 #project-rows #game-jams {
     background: url(img/gamedev-900.jpg), linear-gradient(135deg, rgba(90,0,133,.7) 0%, rgba(90,0,133,.7) 100%);
-
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-
-#project-rows .project .tag {
-    background: var(--red-orange);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #d7e3e3;
-    font-style: italic;
-    line-height: 1;
-    padding: 5px;
-    transition: opacity 0.3s;
-  }
-
+#project-rows .project {
+    width: 500px;
+	max-width: 500px;
+    height: 450px;
+    border: none;
+    /* box-shadow: 6px 6px var(--primary); */
+    box-shadow: var(--box-shadow); 
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+	box-sizing: border-box;
+    transform-origin: center;
+	user-select: none;
+	cursor: pointer;
+    transition: transform 1s;
+    background-blend-mode: var(--project-blend-mode);
+}
+#project-rows .project:hover {
+    /* border: solid 3px var(--primary); */
+    transition: border-color 0.5s; 
+}
 #project-rows .project .description{
     width: 100%;
     height: 100%;
@@ -423,7 +417,23 @@ footer {
     transition: opacity 0.3s;
     background: var(--window-bg-overlay);
     padding: 40px 15px 30px 15px;
+    border-radius: 18px;
+    backdrop-filter: blur(3px);
 }
+
+#project-rows .project .tag {
+    background: var(--red-orange);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: 16px;
+    border-bottom-right-radius: 18px;
+    color: #d7e3e3;
+    font-style: italic;
+    line-height: 1;
+    padding: 8px 14px;
+    transition: opacity 0.3s;
+  }
 
 #project-rows .project .description p {
     margin-bottom:2px;
@@ -482,7 +492,8 @@ footer {
    .button-cover {
     margin: 20px 40px;
     background-color: transparent;
-    /*box-shadow: 0 10px 20px -8px #c5d6d6;*/
+
+    /* box-shadow: 0 10px 20px -8px #c5d6d6; */
     border-radius: 4px;
 }
 
@@ -498,12 +509,19 @@ footer {
 
 .button {
     position: relative;
-    width: 74px;
+    width: 66px;
     height: 36px;
-    border: solid 2px var(--primary);
-    box-shadow: 6px 6px var(--primary2);
+    /* border: solid 3px var(--primary-transparent); */
+    /* box-shadow: 6px 6px var(--primary2); */
+    box-shadow: 0px 6px 15px -6px var(--primary);
+    /* box-shadow: var(--box-shadow);  */
     overflow: hidden;
-    border-radius: 0px;
+    border-radius: 30px;
+}
+
+.button:hover {
+    /* border: solid 3px var(--primary); */
+    transition: border-color 0.5s; 
 }
 
 .checkbox {
@@ -540,7 +558,7 @@ footer {
     text-align: center;
     line-height: 1;
     padding: 9px 4px;
-    border-radius: 2px;
+    border-radius: 50%;
     transition: 0.3s ease all;
 }
 
@@ -563,8 +581,8 @@ footer {
 }
 
 #darkmode .knobs span {
-    width: 25px;
-    left: 37px;
+    width: 21px; 
+    left: 32px; /* Adjust this if you change .button width */
     background-color: var(--yellow); /* covers moon */
     color: transparent;  
     text-shadow: 0 0 0 var(--primary); 
@@ -585,10 +603,6 @@ footer {
 #menu-toggle input[type="checkbox"]:not(:checked) ~ ul {
     display: none;
 }
-
-
-
-
 
 /* ==========================================  /
 /* --- Oubliette Widget Fancy ---------------  /
