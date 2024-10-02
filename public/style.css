@@ -358,6 +358,53 @@ footer {
     mix-blend-mode: lighten;
 }
 
+/* https://codepen.io/supryan/pen/zYWEBQZ */
+.diamond-grid {
+    --sqrt: 1.41421356237; /* Square root of 2 */
+    --grid-unit: 50px; /*calc(100vw / 20);  Divide by number of "columns" */
+    --transform-unit: calc(var(--grid-unit) / var(--sqrt));
+    --unit: calc(var(--transform-unit) * 2);
+    position: relative;
+    height: 150px;
+    left: 40px;
+}
+
+.diamond-grid .grid-item::nth-child(1) {
+    left: var(--unit);
+    top: 0;
+}
+
+.diamond-grid .grid-item:nth-child(2) {
+    left: calc(var(--unit) - 15px);
+    top: calc(var(--unit) - 15px);
+}
+
+.diamond-grid .grid-item:nth-child(3) {
+    left: calc(var(--unit) * 2 - 30px);
+}
+
+.diamond-grid .grid-item:nth-child(4) {
+    left: calc(var(--unit) * 3 - 45px);
+    top: calc(var(--unit) - 15px);
+}
+
+.diamond-grid .grid-item:nth-child(5) {
+    left: calc(var(--unit) * 4 - 60px);
+}
+
+.diamond-grid .grid-item {
+    background: gray;
+    height: calc(var(--unit) + 1px);
+    /*border: 0.5vw solid black;  border creates gap */
+    pointer-events: auto;
+    overflow: hidden;
+    transform: rotate(45deg) translateZ(0); /* Rotate Items */
+    transform-origin: 0% 0%;
+    width: calc(var(--unit) + 1px);
+    z-index: 1;
+    position: absolute;
+}
+
 #intro {
     padding: 15px 40px 30px 40px; 
 }
