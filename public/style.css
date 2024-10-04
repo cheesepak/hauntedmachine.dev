@@ -420,11 +420,8 @@ footer {
     transition: transform 1s;
     background-blend-mode: var(--project-blend-mode);
 }
-#project-rows .project:hover {
-    /* border: solid 3px var(--primary); */
-    transition: border-color 0.5s; 
-}
-#project-rows .project .description{
+
+#project-rows .project .description {
     width: 100%;
     height: 100%;
     display: flex;
@@ -459,11 +456,22 @@ footer {
     margin-bottom:2px;
 }
 
-#project-rows .project .description:hover{
+#project-rows .project:hover, 
+#project-rows .project:focus, 
+#project-rows .project:active {
+    /* border: solid 3px var(--primary); */
+    transition: border-color 0.5s; 
+}
+
+#project-rows .project .description:hover,
+#project-rows .project .description:focus,
+#project-rows .project .description:active {
     opacity: 1;
 }
 
-#project-rows .project .description:hover + .tag{
+#project-rows .project .description:hover + .tag,
+#project-rows .project .description:focus + .tag,
+#project-rows .project .description:active + .tag {
     opacity: 0;
 }
 
