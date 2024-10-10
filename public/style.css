@@ -456,22 +456,22 @@ footer {
     margin-bottom:2px;
 }
 
-#project-rows .project:hover, 
-#project-rows .project:focus, 
-#project-rows .project:active {
+#project-rows .project:hover,  
+#project-rows .project:active,
+#project-rows .project:focus {
     /* border: solid 3px var(--primary); */
     transition: border-color 0.5s; 
 }
 
 #project-rows .project .description:hover,
-#project-rows .project .description:focus,
-#project-rows .project .description:active {
+#project-rows .project .description:active,
+#project-rows .project .description:focus {
     opacity: 1;
 }
 
 #project-rows .project .description:hover + .tag,
-#project-rows .project .description:focus + .tag,
-#project-rows .project .description:active + .tag {
+#project-rows .project .description:active + .tag,
+#project-rows .project .description:focus + .tag {
     opacity: 0;
 }
 
