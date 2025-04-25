@@ -1,0 +1,48 @@
+---
+---
+
+<script>
+    document.getElementById('send')!.onclick = function() {
+        const WEBHOOK = "https://discord.com/api/webhooks/1358971497812857065/7USlfoBQ0VSdrDRGXGVYvbCTbbxPmAm55tJXIr4RxhHfwZHlCmpf67d_UBkdPyxgrsR7"
+        
+        // --- 🅗 🅞 🅝 🅔 🅨 P O T -------------------------------------------------------
+        // if spam problems occur, try (ohon.value(/\S/)) for better coverage? 
+
+        const checkbox = document.getElementById("check");
+
+        if (checkbox!.checked) {
+            console.log("Checkbox is checked");
+            return;
+        }  
+
+        var request = new XMLHttpRequest();
+        // change the webhook URL below (Discord channel settings > integration)
+        request.open("POST", WEBHOOK);
+
+        request.setRequestHeader('Content-type', 'application/json');
+
+        // the below variables combine a label (text) + the textarea value + a newline (\n)
+        // add up to 2,000 characters (Discord's character limit)
+        var email = document.getElementById("email")!.value;
+    
+        // you have to combine both into one single variable before you can pass it to discord
+        var date = new Date();
+        var f_date = date.toLocaleDateString("en-US");
+        var username = "hauntedmachine.dev " + f_date;
+        var msg = email
+        // play with it a bit until you get a feel for how you want the incoming messages to look!
+    
+        var params = {
+        // you can set the username to anything you want
+            username: username,
+            content: msg,
+        }
+        request.send(JSON.stringify(params));
+
+        // below clears the form fields after submission
+        document.getElementById("email")!.value = '';
+
+        const formSubmitted = document.getElementById("form-submitted");
+        formSubmitted?.classList.remove("hidden");
+    }
+</script>
