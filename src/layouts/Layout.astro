@@ -1,17 +1,29 @@
 ---
 import "../styles/global.css"; 
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const { title = "Haunted Machine | Dev + Design", description = "Front end developer and multidisciplinary designer making websites and games.", image = "" } = Astro.props;
+// https://ogp.me/ for social media sharing
+// https://docs.astro.build/en/guides/integrations-guide/sitemap/ for sitemap 
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>hauntedmachine.dev</title>
-		<meta property="og:title" content="hauntedmachine.dev" />
-		<meta property="og:description" content="Multidisciplinary Designer + Front End Developer" />
+		<title>{title}</title>
+		<meta property="og:title" content="{title}" />
+		<meta property="og:description" content="Front End Developer + Multidisciplinary Designer" />
+		<!-- <meta property="og:image" content={image} />-->
 	</head>
 	<body>
 		<slot />
