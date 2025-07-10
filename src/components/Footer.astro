@@ -4,14 +4,17 @@
 ---
 
 <footer>
-     <p>
-        Designed and developed by Haunted Machine<span></span> 
-        <span><a href="#">About</a> <span>|</span> 
-        <a href="#">Site Map</a> <span>|</span> 
-        <a href="https://github.com/cheesepak" target="_blank">Github</a> <span>|</span> 
-        <a href="https://cheesepak.itch.io/" target="_blank">itch.io</a> <span>|</span> 
-        <a href="https://oubliettering.neocities.org/" target="_blank">Webring</a></span> 
-    </p>
+    <div class="wrapper">
+        <div>Built with ❤️ by Haunted Machine</div> 
+        <div>
+            <!-- <span><a href="#">About</a> <span>·</span> 
+            <a href="#">Site Map</a> <span>·</span>
+            <a href="#">Privacy Policy</a> <span>·</span> -->
+            <a href="https://github.com/cheesepak" target="_blank">Github</a> <span>·</span> 
+            <a href="https://cheesepak.itch.io/" target="_blank">itch.io</a> <span>·</span> 
+            <a href="https://oubliettering.neocities.org/" target="_blank">Webring</a></span> 
+        </div>
+    </div>
 </footer>
 
 <style>
@@ -21,6 +24,8 @@ footer {
     text-align: center;
     padding: 0px 10px;
     font-size: 14px;
+    display: flex;
+    justify-content: space-evenly;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -41,5 +46,21 @@ a:visited {
 
 a:hover {
     color: #865eec;
+}
+
+.wrapper {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+}
+
+div {
+    padding: 5px 30px;
+}
+
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column-reverse;
+    }
 }
 </style>
