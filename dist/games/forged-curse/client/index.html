@@ -1,0 +1,663 @@
+﻿<html lang="en">
+<head>
+  <title>The Forged Curse - Archipelago Client</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="pico-window.js"></script>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1><a href="index.html" target="_blank">The Forged Curse</a></h1>
+      <p><img src="img/ap-logo.png" loading="lazy" alt="archipelago logo sprite"> Pico-8 Archipelago Client</p>
+    </div>
+
+    <nav>
+      <a href="compendium.html" target="_blank">Compendium</a>
+      <a href="https://chairodactyl.itch.io/the-forged-curse" target="_blank">itch.io<sup><sup>▞</sup></sup></a>
+      <!--<a href="https://github.com/cheesepak/ssj2025-party" target="_blank">Github</a>
+      <span>settings</span>-->
+    </nav>
+  </header>
+  <main>
+    <section id="pico-cart">
+    <!--hide this when playing in mobile (p8_touch_detected) so that elements don't affect layout -->
+      <!-- Add any content above the cart here -->
+      <div class="row" id="p8_frame_0" style="max-width:800px; max-height:800px; margin:auto;">
+        <!-- double function: limit size, and display only this div for touch devices -->
+        <div id="p8_frame" style="display:flex; width:100%; max-width:95vw; height:100vw; max-height:65vh; margin:auto;">
+
+          <div id="p8_menu_buttons_touch" style="position:absolute; width:100%; z-index:10; left:0px;">
+            <div class="p8_menu_button" id="p8b_full" style="float:left;margin-left:10px"
+              onClick="p8_give_focus(); p8_request_fullscreen();"></div>
+            <div class="p8_menu_button" id="p8b_sound" style="float:left;margin-left:10px"
+              onClick="p8_give_focus(); p8_create_audio_context(); Module.pico8ToggleSound();"></div>
+            <div class="p8_menu_button" id="p8b_close" style="float:right; margin-right:10px" onClick="p8_close_cart();">
+            </div>
+          </div>
+
+          <div id="p8_container" style="margin:auto; display:table;" onclick="p8_create_audio_context(); p8_run_cart();">
+
+            <div id="p8_start_button" class="p8_start_button" style="width:100%; height:100%; display:flex;">
+              <img width=80 height=80 style="margin:auto;"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAABpklEQVR42u3au23DQBCEYUXOXIGKcujQXUgFuA0XIKgW90Q9oEAg+Ljd27vd2RsCf058gEDqhofPj+OB6SMCAQlIQAIyAhKQgARkBAQDnM6XSRsB7/2e/tSA0//12fCAKsQX3ntDA4oRFwBRIc0AixE38BAhTQGLEAsBUSDNAXcRhYDRIZsAPlp99VECRoXsDpgN0g0wC6Q7IDpkGEBUyG6A0+vKBtkdMBukG2AWSHdAdMgwgKiQ4QDRIMMCokCGB4wOCQPYFVKw2cABNocUjl6wgE0gFashPKAZpHJ2TQNYBVmxW6cDFENWDv9pAUshCVgJScBKSAISkD9hPkT4GkNAMdzepyj8Kye852EBLe51CZHHWQK4JcThD1SlcHPEYY/0a+A0n6SkGZV6w6WZNb3g4Id1b7hwgGhwYQBR4dwB0eHcALPAdQfMBhcOEA0uDCAqnDsgOpwbYBa4poA/31+rZYFrBriFpwGMCtcEcA9PAhgdzhywBK8EEQXOFFCCtwaIBmcGKMWbI6LCmQBq8R6hw5kAMgISkIAEJCAjIAEJSEBGQI9ukV7lRn9nD+gAAAAASUVORK5CYII=" />
+            </div>
+
+            <div id="p8_playarea"
+              style="display:none; margin:auto; -webkit-user-select:none; -moz-user-select: none; user-select: none; -webkit-touch-callout:none;">
+
+              <div id="touch_controls_background" style=" pointer-events:none; display:none; background-color:#000;
+                  position:fixed; top:0px; left:0px; border:0; width:100vw; height:100vh">
+                &nbsp
+              </div>
+
+              <div style="display:flex; position:relative">
+                <!-- pointer-events turned off for mobile in p8_update_layout because need for desktop mouse -->
+                <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault();">
+                </canvas>
+                <div class=p8_menu_buttons id="p8_menu_buttons" style="margin-left:10px;">
+                  <div class="p8_menu_button" style="position:absolute; bottom:125px" id="p8b_controls"
+                    onClick="p8_give_focus(); Module.pico8ToggleControlMenu();">
+                  </div>
+                  <div class="p8_menu_button" style="position:absolute; bottom:90px" id="p8b_pause"
+                    onClick="p8_give_focus(); Module.pico8TogglePaused(); p8_update_layout_hash = -22;">
+                  </div>
+                  <div class="p8_menu_button" style="position:absolute; bottom:55px" id="p8b_sound"
+                    onClick="p8_give_focus(); p8_create_audio_context(); Module.pico8ToggleSound();">
+                  </div>
+                  <div class="p8_menu_button" style="position:absolute; bottom:20px" id="p8b_full"
+                    onClick="p8_give_focus(); p8_request_fullscreen();"></div>
+                </div>
+              </div>
+
+
+              <!-- display after first layout update -->
+              <div id="touch_controls_gfx" style=" pointer-events:none; display:table;
+                    position:fixed; top:0px; left:0px; border:0; width:100vw; height:100vh">
+                <img src="" id="controls_right_panel" style="position:absolute; opacity:0.5;">
+                <img src="" id="controls_left_panel" style="position:absolute;  opacity:0.5;">
+              </div> <!-- touch_controls_gfx -->
+
+              <!-- used for clipboard access & keyboard input; displayed and used by PICO-8 only once needed. can be safely removed if clipboard / key presses not needed. -->
+              <!-- (needs to be inside p8_playarea so that it still works under Chrome when fullscreened) -->
+              <!-- 0.2.5: added "display:none"; pico8.js shows on demand to avoid mac osx accent character selector // https://www.lexaloffle.com/bbs/?tid=47743 -->
+
+              <textarea id="codo_textarea" class="emscripten"
+                style="display:none; position:absolute; left:-9999px; height:0px; overflow:hidden"></textarea>
+
+            </div> <!--p8_playarea -->
+
+          </div> <!-- p8_container -->
+
+        </div> <!-- p8_frame -->
+      </div>
+    </section><!-- p8_frame_0 size limit -->
+
+    <script type="text/javascript">
+
+      p8_update_layout();
+      p8_update_button_icons();
+
+      var canvas = document.getElementById("canvas");
+      Module = {};
+      Module.canvas = canvas;
+
+      // from @ultrabrite's shell: test if an AudioContext can be created outside of an event callback.
+      // If it can't be created, then require pressing the start button to run the cartridge
+
+      if (p8_autoplay) {
+        var temp_context = new AudioContext();
+        temp_context.onstatechange = function () {
+          if (temp_context.state == 'running') {
+            p8_run_cart();
+            temp_context.close();
+          }
+        };
+      }
+
+      // pointer lock request needs to be inside a canvas interaction event
+      // pico8_state.request_pointer_lock is true when 0x5f2d bit 0 and bit 2 are set -- poke(0x5f2d,0x5)
+      // note on mouse acceleration for future: // https://github.com/w3c/pointerlock/pull/49
+      canvas.addEventListener("click", function () {
+        if (!p8_touch_detected)
+          if (pico8_state.request_pointer_lock)
+            canvas.requestPointerLock();
+      });
+
+    </script>
+
+      <!-- end pico cart -->
+    </div>
+
+    <section id="archipelago">
+      <!-- login form -->
+      <div class="toggle-login-form row mb-2 d-none">
+        <button type="button" class="btn btn-secondary btn-sm">toggle connection details</button>
+      </div>
+      <div class="login-form row">
+        <form id="connection-details">
+          <div class="input-group input-group-sm mb-2">
+            <label class="input-group-text" for="hostname">Hostname:</label>
+            <input class="form-control" type="text" id="hostname" name="Hostname" value="archipelago.gg">
+          </div>
+
+          <div class="input-group input-group-sm mb-2">
+            <label class="input-group-text" for="port">Port:</label>
+            <input class="form-control" type="text" id="port" name="Port">
+          </div>
+
+          <div class="input-group input-group-sm mb-2">
+            <label class="input-group-text" for="slot-name">Name:</label>
+            <input class="form-control" type="text" id="slot-name" name="Name">
+          </div>
+
+          <div class="input-group input-group-sm mb-2">
+            <label class="input-group-text" for="password">Password:</label>
+            <input class="form-control" type="text" id="password" name="Password">
+          </div>
+
+          <div class="d-flex justify-content-start">
+            <button class="btn btn-primary me-3" type="submit">submit</button>
+            <div class="status-wrapper align-content-around d-none">
+              <div class="status-connected d-none">Connected</div>
+              <div class="status-failed d-none">Connection Failed</div>
+              <div class="status-connecting d-none">Connecting...</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end login form -->
+    <!-- chat <div id="chat" style="width: 400px;"></div>-->
+    </section>
+  </main>
+  <footer>
+    <section class="footer-main">
+      <section class="footer-section">
+        <h2>The Forged Curse</h2>
+        <p>A lone dwarf follows a peculiar white cricket through dark tunnels and stumbles upon the entrance to a long forgotten, ancient forge. Once sealed away by unknown magic, the outer barrier is weak enough to enter and explore.</p>
+        <p>Fight strange creatures and discover the mystery of the Forged Curse in this Rogue inspired game made in Pico-8 with <a href="https://archipelago.gg/" target="_blank">Archipelago.gg</a> implementation.</p>
+        <p>Play the non-archipelago / vanilla version of the game on <a href="https://chairodactyl.itch.io/the-forged-curse" target="_blank">itch.io</a>.</p>
+      </section>
+      <section class="footer-section">
+        <h2>About Us</h2>
+        <ul>
+          <li><a href="https://cheesepak.itch.io/" target="_blank">cheesepak</a> - game design, art, ap integration and client updates, additional music</li>
+          <li><a href="https://chairodactyl.itch.io/" target="_blank">chairodactyl</a> - code, additional art and design, additional music</li>
+          <li><a href="https://bsky.app/profile/enthuseconfuse.bsky.social" target="_blank">EC</a> - music</li>
+          <li><a href="https://www.twitch.tv/lokoklouse" target="_blank">Lokoklouse</a>, Butters - playtesting</li>
+        </ul>
+        <h3>Special Thanks</h3>
+        <p>Thanks to <a href="https://github.com/qwint/ap-air-delivery" target="_blank">qwint</a> and <a href="https://github.com/ap-metrocubevania/ap-metrocubevania" target="_blank">Amazia</a> for their work on other Pico-8 integrations.</p>
+      </section>
+      <section class="footer-section">
+        <h2>Links</h2>
+        <ul>
+          <li><a href="compendium.html" target="_blank">Compendium</a></li>
+          <li><a href="https://archipelago.gg/" target="_blank">Archipelago.gg</a></li>
+          <li><a href="https://chairodactyl.itch.io/the-forged-curse" target="_blank">Find us on itch.io</a></li>
+          <li><a href="https://github.com/cheesepak/ap-forged-curse" target="_blank">AP Forged Curse Github</a></li>
+          <li><a href="https://itch.io/jam/ssjparty/entries" target="_blank">Originally created for PIGSquad Summer Slow Jams - July 2025</a></li>
+        </ul>
+        <h3>Find a bug? <img src="img/cricket.png" loading="lazy" alt="albino cricket sprite"></h3>
+        <ul>
+          <li><a href="https://github.com/cheesepak/ap-forged-curse/issues" target="_blank">Report on Github</a></li>
+        </ul>
+        <h2>Client Theme</h2>
+
+        <select id="select-theme" onchange="updateColor(this.value)">
+          <option value="">-- select theme --</option>
+          <option value="--dark-blue">dark-blue</option>
+          <option value="--dark-purple">dark-purple</option>
+          <option value="--dark-green">dark-green</option>
+          <option value="--dark-grey">dark-grey</option>
+          <option value="--brown">brown</option>
+          <option value="--lavender">lavender</option>
+        </select>
+      </section>
+    </section>
+    <section class="footer-sub">
+      <p>Built with ❤️ by <a href="https://hauntedmachine.dev/" target="_blank">Haunted Machine</a></p>
+    </section>
+  </footer>
+    <script src="pico8-gpio-listener.js"></script>
+    <script type="module">
+      import {
+        Client,
+        ITEMS_HANDLING_FLAGS,
+        SERVER_PACKET_TYPE,
+        CLIENT_STATUS,
+        CLIENT_PACKET_TYPE,
+        CREATE_AS_HINT_MODE,
+        COMMON_TAGS,
+      } from "https://unpkg.com/archipelago.js@1.0.0/dist/archipelago.js";
+
+      // Create a new Archipelago client
+      const client = new Client();
+      const form = document.querySelector("#connection-details")
+
+      //pico-8 related declarations
+      const gpio = getP8Gpio();
+      const loc_flags = {
+        "blink chest": [0,16],
+        "eclipse knight sanctuary chest": [1,18],
+        "kobold home chest": [2,30],
+        "kobold cave north chest": [3,27],
+        "temple north chest": [4,32],
+        "unknown priest grave": [5,34],
+        "shed chest": [6,29],
+        "temple south chest": [7,33],
+        "grappling hook chest": [8,17],
+        "mushroom cave": [9,11],
+        "nmr left chest": [10,13],
+        "nmr right chest": [11,14],
+        "kobold cave south chest": [12,28],
+        "pig pen chest": [13,31],
+        "riverside chest": [14,0],
+        "pigcube hideaway chest": [15,15],
+        "kikku chest": [16,1],
+        "fortress lionsmane chest": [17,36],
+        "fortress gnoglic chest": [18,37],
+        "fortress amanita chest": [19,38],
+        "fortress browncap chest": [20,39],
+        "gold armor chest": [21,10],
+        "slime island chest": [22,8],
+        "wooden sword chest": [23,2],
+        "spider storage chest": [24,7],
+        "leather armor chest": [25,3],
+        "fortress blocked chest": [26,40],
+        "orange key chest": [27,12],
+        "waxing moon mimic": [28,19],
+        "gibbous cleric grave chest": [29,21],
+        "red key chest": [30,4],
+        "victory": [31,54],
+        "waxing moon chest": [32,20],
+        "fortress exit chest": [33,42],
+        "anvil chest": [34,5],
+        "secret ingredient mimic": [35,9],
+        "pigcube hall chest": [36,24],
+        "ghr north chest": [37,50],
+        "pigcube closet chest": [38,25],
+        "iron armor chest": [39,22],
+        "iron sword chest": [40,23],
+        "pot maze right chest": [41,48],
+        "pot maze left chest": [42,47],
+        "ghr center chest": [43,49],
+        "monty hall door chest": [44,53],
+        "lower riverbank chest": [45,35],
+        "mini maze center": [46,51],
+        "apogee mage grave chest": [47,43],
+        "mini maze right": [48,52],
+        "secret storage left chest": [49,44],
+        "secret storage center chest": [50,45],
+        "secret storage right chest": [51,46],
+        "fortress closet chest": [52,41],
+        "map check": [53,26],
+        "forge check": [54,6],
+      };
+
+      const item_flags = {
+        "blink heart gem": [0,24],
+        "white key": [1,15],
+        "kobold's loot": [2,26],
+        "hammer": [3,2],
+        "blue key": [4,12],
+        "skeleton key": [5,16],
+        "green key": [6,13],
+        "crossbow": [7,9],
+        "grappling hook": [8,4],
+        "blink rod": [9,7],
+        "nmr left loot": [10,27],
+        "nmr right loot": [11,28],
+        "kobold cave loot": [12,29],
+        "pig pen loot": [13,30],
+        "riverside heart gem": [14,24],
+        "hideaway loot": [15,31],
+        "crowbar": [16,3],
+        "lionsmane loot": [17,32],
+        "gnoglic loot": [18,33],
+        "amanita loot": [19,34],
+        "browncap loot": [20,35],
+        "gold armor": [21,23],
+        "gold sword": [22,20],
+        "wooden sword": [23,18],
+        "spider's loot": [24,36],
+        "leather armor": [25,21],
+        "snake's loot": [26,37],
+        "orange key": [27,14],
+        "mimic's loot": [28,38],
+        "bellows": [29,1],
+        "red key": [30,11],
+        "push rod": [32,6],
+        "fort exit loot": [33,39],
+        "anvil": [34,0],
+        "cricket": [35,17],
+        "hallway loot": [36,40],
+        "ghr top loot": [37,41],
+        "pigcube heart gem": [38,24],
+        "iron armor": [39,22],
+        "iron sword": [40,19],
+        "bombs": [41,8],
+        "pot maze loot": [42,42],
+        "winner's loot": [43,43],
+        "ghr left loot": [44,44],
+        "riverside loot": [45,45],
+        "minimaze top loot": [46,46],
+        "boat": [47,5],
+        "minimaze right loot": [48,47],
+        "storage left loot": [49,48],
+        "storage heart gem": [50,24],
+        "storage right loot": [51,49],
+        "fortress closet heart gem": [52,24],
+        "map": [54,25],
+        "arrows": [55,10],
+        //filler loot
+        "loot": [56,56]
+      };
+
+      const base_id = 99117114115101;
+
+      let checked_locations = [];
+      let options = {}
+
+      let thisPlayer = 0;
+      let players = {};
+
+      let DeathLink_Amnesty = 0;
+
+      function message_pico8(message) {
+        let index = 37;
+        //let log = "";
+        for (let i = 0; i < message.length; i++) {
+          gpio[index] = message[i].charCodeAt(0);
+          index++;
+        }
+      }
+
+      // Set up event listeners
+      client.addListener(SERVER_PACKET_TYPE.CONNECTED, (packet) => {
+        console.log("Connected to server: ", packet);
+        thisPlayer = packet.slot;
+        for (let slot in packet.slot_info) {
+          players[slot] = {
+            "slot": parseInt(slot),
+            "name": packet.slot_info[slot].name,
+            "alias": "".concat(packet.players[slot-1].alias.split(" ").slice(0,-1)),
+            "game": packet.slot_info[slot].game,
+          }
+        }
+        // set up gpio options
+        options = client.data.slotData;
+        let optionsByte=1;
+        if (options.DeathLink !== 0) {
+          optionsByte += 2;
+          client.send({ cmd: CLIENT_PACKET_TYPE.CONNECT_UPDATE, tags: COMMON_TAGS.DEATH_LINK });
+          DeathLink_Amnesty = options.DeathLink_Amnesty;
+        }
+        if (options.MedalHunt) {
+          optionsByte += 4;
+        }
+        if (options.ExtraCheckpoint) {
+          optionsByte += 8;
+        }
+        if (options.ExtraChecks) {
+          optionsByte += 16;
+        }
+        gpio[20] = optionsByte;
+
+        client.send({ cmd: CLIENT_PACKET_TYPE.SYNC });
+      });
+
+      client.addListener(SERVER_PACKET_TYPE.ROOM_UPDATE, (packet) => {
+        console.log("Room update: ", packet);
+      });
+
+      //add item handler for gpio layer
+      client.addListener(SERVER_PACKET_TYPE.RECEIVED_ITEMS, (packet, message) => {
+        console.log("Recieved items: ", packet);
+        //if this is a sync packet reset all our item addresses without changing anything else
+        if (packet.index === 0) {
+          for (let i = 10; i < 20; i++) {
+            gpio[i] = 0;
+          }
+        }
+        //go through all our item addresses and if they are not set, check the recieved items for their ap id, and set the gpio flag if we recieved it
+        //on the scale i expect pico-8 games to be, this will be good enough
+        //console.log(`gpio: ${gpio}`)
+        for (let i = 0; i < packet.items.length; i++) {
+          let item = packet.items[i];
+          if (item.item === base_id+9) {
+            if (item.player === thisPlayer) {
+              message_pico8("found loot");
+            } else {
+              if (players[item.player].alias === ""){
+                message_pico8(`got loot from ${players[item.player].name} :(`.toLowerCase())
+              } else {
+                message_pico8(`got loot from ${players[item.player].alias} :(`.toLowerCase())
+              }
+            }
+          }
+          for (let flag in item_flags) {
+            if (base_id + item_flags[flag][1] === item.item) {
+              let byte = Math.floor(item_flags[flag][0] / 8) + 10; // + 10 starts at byte 10 | item_flags[flag][0]
+              let item_bit = 2 ** (item_flags[flag][0] % 8); // item_flags[flag][0]
+              if (gpio[byte] & item_bit) {//yes this is supposed to be bitwise and
+                console.log(`${flag} has already been received`);
+              } else {
+                gpio[byte] |= item_bit;
+                if (item.player === thisPlayer) {
+                  message_pico8(`found ${flag}`.toLowerCase())
+                } else {
+                  if (players[item.player].alias === ""){
+                    message_pico8(`got ${flag} from ${players[item.player].name}`.toLowerCase())
+                  } else {
+                    message_pico8(`got ${flag} from ${players[item.player].alias}`.toLowerCase())
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+
+      client.addListener(SERVER_PACKET_TYPE.BOUNCED, (packet) =>{
+        console.log("Bounced ", packet);
+        if (packet.tags === COMMON_TAGS.DEATH_LINK && options.DeathLink !== 0 && packet.data.source !== thisPlayer) {
+          gpio[25] = gpio[25] | 1;
+          DeathLink_Amnesty += 1;
+          if (packet.data.source) {
+            if (players[packet.data.source].alias === ""){
+              message_pico8(`deathlinked by ${players[packet.data.source].name}`.toLowerCase());
+            } else {
+              message_pico8(`deathlinked by ${players[packet.data.source].alias}`.toLowerCase());
+            }
+          } else {
+            message_pico8("deathlinked");
+          }
+        }
+      });
+
+      //add location info listener to give game sent item text
+      client.addListener(SERVER_PACKET_TYPE.LOCATION_INFO, (packet, message) => {
+        console.log("Location Info: ", packet);
+        for (let i=0; i<packet.locations.length; i++){
+          let location = packet.locations[i];
+          if (location.player !== thisPlayer) {
+            let itemName = client.items.name(players[location.player].game, location.item)
+            if (players[location.player].alias === "") {
+              message_pico8(`sent ${itemName} to ${players[location.player].name}`.toLowerCase());
+            } else {
+              message_pico8(`sent ${itemName} to ${players[location.player].alias}`.toLowerCase());
+            }
+          }
+        }
+      });
+
+      // Connect to the Archipelago server
+      form.addEventListener("submit", (event) => {
+        event.preventDefault()
+        const connectionInfo = {
+          hostname: document.getElementById("hostname").value,
+          port: Number(document.getElementById("port").value),
+          password: document.getElementById("password").value,
+          game: "Forged Curse",
+          name: document.getElementById("slot-name").value,
+          items_handling: ITEMS_HANDLING_FLAGS.REMOTE_ALL,
+          version: {
+            build: 0,
+            major: 5,
+            minor: 0,
+          },
+        };
+        console.log(connectionInfo.hostname);
+        console.log(connectionInfo.port);
+        console.log(connectionInfo.name);
+
+        const statusWrapper = document.querySelector(".status-wrapper");
+        const connected = document.querySelector(".status-connected");
+        const failed = document.querySelector(".status-failed");
+        const connecting = document.querySelector(".status-connecting");
+
+        statusWrapper.classList.remove("d-none");
+        connected.classList.add("d-none");
+        failed.classList.add("d-none");
+        connecting.classList.remove("d-none");
+
+        client
+          .connect(connectionInfo)
+          .then(() => {
+            console.log("Connected to the server");
+            connecting.classList.add("d-none");
+            connected.classList.remove("d-none");
+            // You are now connected and authenticated to the server. You can add more code here if need be.
+            const toggle = document.querySelector('.toggle-login-form');
+            const loginForm = document.querySelector('.login-form');
+            toggle.addEventListener('click', () => {
+              loginForm.classList.toggle('d-none', !loginForm.classList.contains('d-none'));
+            });
+            loginForm.classList.add('d-none');
+            toggle.classList.remove('d-none');
+          })
+          .catch((error) => {
+            console.error("Failed to connect:", error);
+            connecting.classList.add("d-none");
+            failed.classList.remove("d-none");
+            // Handle the connection error.
+          });
+      });
+
+      // TO DO: Get this working
+      // add location handler for gpio layer
+      // sending information to the pico8 will trigger this function sending all checks to ap again
+      // if you always send information to the pico8 when the gpio updates, that can cause an infinite loop
+      gpio.subscribe(function (newIndices) {
+        if (options.DeathLink !== 0 && (gpio[25] & 2) !== 0) {
+          console.log("Death");
+          gpio[25] = gpio[25] - 2;
+              DeathLink_Amnesty -= 1;
+              if (DeathLink_Amnesty === 0){
+            DeathLink_Amnesty = options.DeathLink_Amnesty;
+            client.send({ cmd: CLIENT_PACKET_TYPE.BOUNCE, tags: COMMON_TAGS.DEATH_LINK, data: {"source": thisPlayer}});
+            if (options.DeathLink_Amnesty > 1) {
+              message_pico8("sent deathlink")
+            }
+              }
+        }
+        for (let loc in loc_flags) {
+          if ((gpio[Math.floor(loc_flags[loc][0] / 8)] & 2 ** (loc_flags[loc][0] % 8)) !== 0) { // loc_flags[loc][0]
+            if (loc === "victory") {
+              client.updateStatus(CLIENT_STATUS.GOAL);
+            } else {
+              console.log(`Checking location id: ${base_id + loc_flags[loc][1]}`) // loc_flags[loc][1]
+              client.locations.check(base_id + loc_flags[loc][1]); // loc_flags[loc][1]
+              if (!checked_locations.includes(base_id + loc_flags[loc][1], 0)){ // loc_flags[loc][1]
+                client.locations.scout(CREATE_AS_HINT_MODE.NO_HINT, base_id + loc_flags[loc][1]); // loc_flags[loc][1]
+              }
+              checked_locations.push(base_id + loc_flags[loc][1]); // loc_flags[loc][1]
+            }
+          }
+        }
+      });
+
+      // TO DO: Get this working
+      //** start chat from phar
+      client.messages.on("message", onMessage);
+
+      function onMessage(text, nodes) {
+          // Plaintext to console, because why not?
+          console.log(text);
+
+          const chat = document.getElementById("chat");
+          const messageElement = document.createElement("div");
+
+          for (const node of nodes) {
+              const nodeElement = document.createElement("span");
+              nodeElement.innerText = node.text;
+
+              switch (node.type) {
+                  case "entrance":
+                      nodeElement.style.color = "#6495ED";
+                      break;
+
+                  case "location":
+                      nodeElement.style.color = "#00FF7F";
+                      break;
+
+                  case "color":
+                      // not really correct, but technically the only color nodes the server returns is "green" or "red"
+                      // so it's fine enough for an example.
+                      nodeElement.style.color = node.color;
+                      break;
+
+                  case "player":
+                      if (node.player.slot === client.players.self.slot) {
+                          // It's us!
+                          nodeElement.style.color = "#EE00EE";
+                      } else {
+                          // It's them!
+                          nodeElement.style.color = "#FAFAD2";
+                      }
+                      break;
+
+                  case "item": {
+                      // doesn't account for prog+useful or other combinations, but this is just as an example
+                      if (node.item.progression) {
+                          nodeElement.style.color = "#AF99EF";
+                      } else if (node.item.useful) {
+                          nodeElement.style.color = "#6D8BE8";
+                      } else if (node.item.trap) {
+                          nodeElement.style.color = "#FA8072";
+                      } else {
+                          nodeElement.style.color = "#00EEEE";
+                      }
+                  }
+
+                  // no special coloring needed
+                  case "text":
+                  default:
+                      break;
+              }
+
+              messageElement.appendChild(nodeElement);
+          }
+
+          chat.appendChild(messageElement);
+          messageElement.scrollIntoView(false);
+      }
+      // end chat from phar **/
+    </script>
+    <script>
+      function updateColor(cssColorVar) {
+        if (!cssColorVar) return;
+        const color = getComputedStyle(document.documentElement).getPropertyValue(cssColorVar).trim();
+        document.documentElement.style.setProperty('--primary-color', color);
+      }
+    </script>
+</body>
+
+</html>
