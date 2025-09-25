@@ -2,3 +2,16 @@
   color: #ffffff;
   background: #de3d11;
 }
+
+a {
+    color: #de3d11;		
+}
+
+a:visited {
+    color: #de3d11;
+}
+
+
+a:hover {
+    color: #865eec;
+}
