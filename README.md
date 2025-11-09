@@ -1,3 +1,3 @@
 # hauntedmachine.dev
 
-Static personal site built with Astro.
+Personal website built with Astro 🍛
