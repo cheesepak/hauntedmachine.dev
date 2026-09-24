@@ -1,4 +1,7 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 import "../styles/global.css"; 
 
 interface Props {
@@ -7,7 +10,7 @@ interface Props {
 	image?: string;
 }
 
-const { title = "Haunted Machine | Dev + Design Wizard", description = "Front end developer and multidisciplinary designer making websites, apps, and games.", image = "" } = Astro.props;
+const { title = "Haunted Machine | Design Engineer", description = "Design engineer, game developer, and graphic designer making games and web experiences.", image = "" } = Astro.props;
 // https://ogp.me/ for social media sharing
 // https://docs.astro.build/en/guides/integrations-guide/sitemap/ for sitemap 
 ---
@@ -26,7 +29,11 @@ const { title = "Haunted Machine | Dev + Design Wizard", description = "Front en
 		<!-- <meta property="og:image" content={image} />-->
 	</head>
 	<body>
-		<slot />
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
 		<!-- Analytics -->
 		<script data-goatcounter="https://hauntedmachine.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -34,11 +41,20 @@ const { title = "Haunted Machine | Dev + Design Wizard", description = "Front en
 </html>
 
 <style>
-	html,
-	body {
+	*, *::before, *::after {
+		box-sizing: border-box;
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
 	}
-
+	body {
+		font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		line-height: 1.6;
+		padding-inline: 1rem;
+	}
+	main {
+		max-width: 100dvw;
+		margin-inline: auto;
+		padding: 1rem;
+		min-height: 100dvh;
+	}
 </style>

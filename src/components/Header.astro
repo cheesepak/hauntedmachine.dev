@@ -1,0 +1,68 @@
+---
+import Navigation from './Navigation.astro';
+import NavMenu from './NavMenu.astro';
+import ThemeIcon from './ThemeIcon.astro';
+---
+<header>
+    <div class="logo"><a href="/">HAUNTED<br>MACHINE</a></div> 
+    <nav>
+        <Navigation />
+        <div class="nav-menu">
+            <NavMenu />
+            <ThemeIcon />
+        </div>
+    </nav>
+</header>
+
+<style>
+    header {
+        /*background-color: #0e0b0085;*/
+        color: #eee;
+        text-align: center;
+        padding: 0px 20px;
+        font-family: "Oswald", 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        /*position: sticky;*/
+        top: 0;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-variation-settings: "wght" 200; 
+    }
+
+    span {
+        padding: 0 10px;
+    }
+
+    a {
+        color: #de3d11;
+        text-decoration: none;		
+    }
+
+    a:visited {
+        color: #de3d11;
+    }
+
+    a:hover {
+        color: #865eec;
+    }
+
+    div.logo {
+        display: flex;
+        align-items: center; 
+        font-family: Oswald, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        font-variation-settings: "wght" 700; 
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+        padding: 20px 0;
+    }
+
+</style>

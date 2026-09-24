@@ -4,14 +4,136 @@ import Layout from '../layouts/Layout.astro';
 
 const pageTitle = "Haunted Machine | Dev + Design Wizard";
 const pageDescription = "Front end developer and multidisciplinary designer making websites and games.";
+
+// Possible Fonts:
+// https://www.collletttivo.it/typefaces/apfel-grotezk
+//
+// https://fonts.google.com/specimen/Inter
+// https://www.figma.com/fonts/oswald/
+// 		Code:
+// 		https://www.jetbrains.com/lp/mono/#font-family
+//		https://typeof.net/Iosevka/
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-	<Welcome />
+	<div class="container">
+		<section class="hero">
+			<div class="portrait-container">
+				<div class="portrait">&nbsp;</div>
+			</div>
+			<section class="intro">
+				<h2>INDIE GAME DEVELOPER, <br>DESIGNER, & ILLUSTRATOR</h2>
+				<p>Hi! I make games! Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+			</section>
+		</section>
+		<section id="work">
+			<section id="featured-work">
+				<div class="card"> Tall Trails </div>
+				<div class="card"> Reincarnated as a Jester </div>
+				<div class="card"> The Forged Curse </div>
+				<div class="card"> Bumble Launcher </div>
+				<div class="card"> Pretend Quest </div>
+			</section>
+			<section id="more-work">More Work</section>
+		</section>
+	</div>
 </Layout>
 
 
 <style>
-	
-</style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+		overflow-x: clip;
+	}
+	.hero {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		max-width: 800px;
+	}
+	.portrait-container {
+		display: flex;
+		justify-content: center;
+		z-index: -1;
+	}
+	.portrait {
+		background-color: red;
+		min-height: 600px;
+		width: 600px;
+		display: block;
+		border-radius: 50%;
+		animation: moveAcross ease-in;
+		animation-timeline: view(); /*animation-timeline: scroll(root block);*/
+		animation-range: exit;
+	}
 
+	.intro {
+		position: relative;
+		top: -100px;
+		z-index: 1;
+	}
+	.intro h2{
+		font-family: Oswald, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        font-variation-settings: "wght" 700; 
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+		text-align: center;
+	}
+
+	#work {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	#featured-work {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+		align-items: start;
+		max-width: 100%; 
+	}
+
+	.card {
+		background-color: red;
+		flex: 0 0 calc(50% - 8px); 
+		box-sizing: border-box;
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.5rem;
+		min-height: 300px;
+		border-radius: 12px;
+		animation: moveAcross ease-in;
+		animation-timeline: view(); /*animation-timeline: scroll(root block);*/
+		animation-range: start;
+	}
+
+	/*
+	.card:nth-child(4n+1),
+	.card:nth-child(4n+4) {
+		grid-column: span 1;
+		aspect-ratio: 1 / 1;
+	}
+
+	.card:nth-child(4n+2),
+	.card:nth-child(4n+3) {
+  		grid-column: span 2;
+  		aspect-ratio: 2.002 / 1; 
+	}*/
+
+	@keyframes moveAcross {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(calc(200% - 400px));
+		}
+	}	
+</style>

@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Haunted Machine | About";
+const pageDescription = "Design Engineer making games and web experiences.";
+
+const identity = {
+  firstName: "...",
+  lastName: "...",
+  country: "United States",
+  state: "Oregon",
+  occupation: "indie game developer, designer, and illustrator",
+  hobbies: ["photography", "movies", "hiking", "gaming"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "Python", "React", "Astro", "Writing Docs", "LUA", "Godot", "LÖVE", "and more..."];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    <h1>About Me</h1>
+    <p>Here are a few facts about me:</p>
+    <ul>
+        <li>My name is {identity.firstName} {identity.lastName}</li>
+        <li>I live in {identity.state} and I am a {identity.occupation}.</li>
+        {identity.hobbies.length >= 2 &&
+            <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+        }
+    </ul>
+    <p>My skills are:</p>
+    <ul>
+        {skills.map((skill) => <li>{skill}</li>)}
+    </ul>
+</Layout>
+
+
+<style>
+	
+</style>

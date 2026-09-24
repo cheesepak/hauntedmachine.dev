@@ -9,7 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "@vfx-js/core": "^0.6.0",
-    "astro": "^5.6.0"
+    "astro": "^7.3.3"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "sharp@0.33.5": true,
+    "esbuild@0.28.2": true
   }
 }

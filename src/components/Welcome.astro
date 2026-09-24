@@ -3,10 +3,7 @@ import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
 import DiscordWebhook from '../components/DiscordWebhook.astro';
 import DiamondBG from './DiamondBG.astro';
-import Footer from './Footer.astro';
 ---
-
-<main>
 	<DiamondBG />
 	<div class="wrapper">
 		<noscript><p>This website uses javascript for some animation.</p></noscript>
@@ -26,11 +23,10 @@ import Footer from './Footer.astro';
 				<button type="button" id="send">Send</button>
 			</form>
 			<p id="form-submitted" class="hidden">Thanks for showing interest in hauntedmachine.dev!</p>
-		</div>
+		</div>-->
 	</div>
-	<DiscordWebhook />-->
-	<Footer />
-</main>
+	<!-- <DiscordWebhook />-->
+
 <style>
 	/* Make sure to download this for local access later */
 	@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
@@ -72,7 +68,7 @@ import Footer from './Footer.astro';
     select:focus {
       outline: none;
       background: #ffffff;
-		border-color: #54258a;
+	border-color: #54258a;
       box-shadow: 0 0 5px #54258a;
     }
 
@@ -114,7 +110,7 @@ import Footer from './Footer.astro';
 	}
 
 	.glitch {
-		max-width: 800px;
+		max-width: 640px;
 		width: 100vw;
 	}
 
