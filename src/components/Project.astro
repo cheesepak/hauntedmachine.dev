@@ -1,0 +1,9 @@
+---
+const { title, url, description, tags } = Astro.props;
+// this is how each project card will display on the work page
+---
+<div>
+    <h3><a href={url}>{title}</a></h3>
+    <p>{description}</p>
+    <p>{tags?.map((tags:string) => <span class="tag">#{tags} </span>)}</p>
+</div>

@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+
+import Project from '../components/Project.astro';
+import Layout from '../layouts/Layout.astro';
+import TagList from '../components/TagList.astro';
+
+const pageTitle = "Work | Haunted Machine";
+const pageDescription = "Design Engineer making games and web experiences.";
+
+const allProjects = await getCollection("work");
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    <h1>Work</h1>
+    <p>Lorem ipsum project time. A secret for now as I don't have content.</p>
+    <TagList collectionName="work" pathSegment="work" />
+    {
+        allProjects.map((project) => (
+            <Project url={`/work/${project.id}/`} title={project.data.title} description={project.data.description} tags={project.data.tags} />
+        ))
+    }
+</Layout>
+
+
+<style></style>

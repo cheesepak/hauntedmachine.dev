@@ -1,0 +1,35 @@
+---
+import { getCollection, type CollectionKey } from "astro:content";
+
+interface Props { 
+  collectionName: CollectionKey; 
+  pathSegment: string;
+}
+
+const { collectionName, pathSegment } = Astro.props;
+const allPosts = await getCollection(collectionName);
+const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+---
+
+<div class="tags">
+  {tags.map((tag) => (
+    <p class="tag"><a href={`${pathSegment}/tags/${tag}`}>{tag}</a></p>
+  ))}
+</div>
+
+<style>
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: 0.25em;
+  border: dotted 1px #a1a1a1;
+  border-radius: .5em;
+  padding: .5em 1em;
+  font-size: 1.15em;
+  background-color: #F8FCFD;
+}
+</style>

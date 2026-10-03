@@ -2,16 +2,26 @@
 
 :root {
   --red: #E03E00; /*Old Red #de3d11*/
-  --orange: #E05A00;
+  --orange: #ea9c5c;
+  --yellow: #ae8244;
   --neongreen: #c8f703;
+  --lightgreen: #d7f184;
+  --brightgreen: #b3e51d;
+  --green: #23b14d;
+  --darkgreen: #177835; 
   --teal: #339989;
+  --cyan: #64a3b5;
   --blue: #007FFF;
   --purple: #865eec;
+  --bluegray: #23283c;
+  --gray: #2a303e;
   --black: #11151C;
   --deepblack: #121212;
+  --midgray: #8d8d8d;
+  --lightgray: #cccccc;
   --white: #F9F9F9;
   --accent: var(--red);
-  --secondary-accent: var(--purple);
+  --accent2: var(--cyan);
 }
 
 html {
@@ -32,7 +42,7 @@ a:visited {
 }
 
 a:hover {
-    color: #865eec;
+    color: var(--accent2);
 }
 
 /* nav styles */
@@ -111,7 +121,7 @@ html.dark {
 }
 
 .dark a {
-  color: #ff9776;
+  color: var(--accent);
 }
 
 .dark button {
