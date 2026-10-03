@@ -9,6 +9,9 @@ const pageTitle = "Work | Haunted Machine";
 const pageDescription = "Design Engineer making games and web experiences.";
 
 const allProjects = await getCollection("work");
+const sortedProjects = allProjects.sort((a, b) => {
+  return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
+});
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -16,7 +19,7 @@ const allProjects = await getCollection("work");
     <p>Lorem ipsum project time. A secret for now as I don't have content.</p>
     <TagList collectionName="work" pathSegment="work" />
     {
-        allProjects.map((project) => (
+        sortedProjects.map((project) => (
             <Project url={`/work/${project.id}/`} title={project.data.title} description={project.data.description} tags={project.data.tags} />
         ))
     }
